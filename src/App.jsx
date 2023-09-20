@@ -1,51 +1,37 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
 
 function App() {
-  const [name, setName] = useState("")
-  const [password, setPassword] = useState("")
+  const [inputText, setInputText] = useState('');
+  const [displayText, setDisplayText] = useState('');
 
-  const handleNameChange = event => {
-    setName(event.target.value)
-  }
+  const handleInputChange = (event) => {
+    setInputText(event.target.value);
+  };
 
-  const handlePasswordChange = event => {
-    setPassword(event.target.value)
-  }
-
-  // useEffect(() => {
-  //   console.log(name)
-  // }, [name])
-
-  const handleSubmitForm = (event) => {
-    event.preventDefault()
-    alert("name: " + name + password)
-    setName("")
-    setPassword("")
-  }
+  const handleDisplayText = () => {
+    setDisplayText(inputText);
+    setInputText('');
+  };
 
   return (
-    <>
-      <h1>Login:</h1>
-      <form onSubmit={handleSubmitForm}>
+    <div className="App">
+      <h1>Forma</h1>
+      <input
+        type="text"
+        placeholder="Unesi tekst"
+        value={inputText}
+        onChange={handleInputChange}
+      />
+      <button onClick={handleDisplayText}>Potvrdi</button>
+      {displayText && (
         <div>
-          <label>
-              Name:
-              <input type="text" name="ime" value={name} onChange={handleNameChange}/>
-          </label>
+          <h2>Uneseni tekst:</h2>
+          <p>{displayText}</p>
         </div>
-        <div>
-          <label>
-              Password:
-              <input type="password" name="password" value={password} onChange={handlePasswordChange}/>
-          </label>
-        </div>
-        <input type="submit" value="Potvrdi" />
-      </form>
-    </>
-  )
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
